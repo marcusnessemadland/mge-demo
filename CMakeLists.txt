@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10.2) 
-project(vulkan-renderer)
+project(vulkan-renderer-demo)
 cmake_policy(SET CMP0054 NEW)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
@@ -23,20 +23,15 @@ set_property(CACHE VR_LIBRARY_TYPE PROPERTY STRINGS "STATIC" "SHARED")
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-if(NOT BX_DIR)
-	set(BX_DIR "${CMAKE_CURRENT_SOURCE_DIR}/bx" CACHE STRING "Location of bx.")
-elseif(NOT IS_ABSOLUTE "${BX_DIR}")
-	get_filename_component(BX_DIR "${BX_DIR}" REALPATH BASE_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
-endif()
+#
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/vulkan-renderer)
 
-if(NOT VR_DIR)
-	set(VR_DIR "${CMAKE_CURRENT_SOURCE_DIR}" CACHE STRING "Location of vulkan-renderer.")
-elseif(NOT IS_ABSOLUTE "${VR_DIR}")
-	get_filename_component(VR_DIR "${VR_DIR}" REALPATH BASE_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
-endif()
-
-file(TO_CMAKE_PATH "${BX_DIR}" BX_DIR)
-file(TO_CMAKE_PATH "${VR_DIR}" VR_DIR)
-
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/cmake/bx)
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/cmake/vr)
+#
+file(
+	GLOB_RECURSE
+	DEMO_SOURCES
+	${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/*.h
+)
+add_executable(vulkan-renderer-demo ${DEMO_SOURCES})
+target_link_libraries(vulkan-renderer-demo PRIVATE vulkan-renderer)
