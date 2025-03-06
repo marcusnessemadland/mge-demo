@@ -13,6 +13,15 @@ void _main_(int argc, const char** argv)
     // Create event queue
     auto event = createEventQueue(window);
 
+    // Create framebuffer
+    auto framebuffer = createFramebuffer(window);
+
+    // Create world
+    auto world = createWorld();
+
+    // Create camera
+    auto camera = createCamera(world, Projection::Perspective);
+
     // Game loop
     while (!window->isClosed())
     {
@@ -28,6 +37,7 @@ void _main_(int argc, const char** argv)
         }
 
         // Update
-
+        world->update();
+        world->render(framebuffer);
     }
 }
