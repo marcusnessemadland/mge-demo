@@ -1,46 +1,33 @@
-#include "vulkan-renderer/entry.h"
+/// Demo example
+///
 
-class Demo : public vr::AppI
+#include <vulkan-renderer.h>
+
+using namespace vr;
+
+void _main_(int argc, const char** argv)
 {
-public:
-	Demo(const char* _name, const char* _description, const char* _url)
-		: vr::AppI(_name, _description, _url)
-	{
-		m_width = 1280;
-		m_height = 720;
-	}
+    // Create window
+    auto window = createWindow("Demo", 0, 0, 1280, 720, VR_WINDOW_DEFAULT);
 
-	~Demo()
-	{
-	}
+    // Create event queue
+    auto event = createEventQueue(window);
 
-	void init(int32_t _argc, const char* const* _argv, uint32_t _width, uint32_t _height)
-	{
-	}
+    // Game loop
+    while (!window->isClosed())
+    {
+        // Event loop
+        while (!event->empty())
+        {
+            const Event& ev = event->front();
+            if (ev.type == EventType::Close)
+            {
+                window->close();
+            }
+            event->pop();
+        }
 
-	int  shutdown()
-	{
-		return 0;
-	}
+        // Update
 
-	bool update()
-	{
-		if (!vr::processEvents(m_width, m_height, &m_mouse))
-		{
-			return true;
-		}
-
-		return false;
-	}
-
-private:
-	uint32_t m_width, m_height;
-	vr::MouseState m_mouse;
-};
-
-ENTRY_IMPLEMENT_MAIN(
-	Demo
-	, "Demo"
-	, "Demo of the vulkan renderer"
-	, "https://github.com/marcusnessemadland/vulkan-renderer"
-);
+    }
+}
