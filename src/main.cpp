@@ -13,8 +13,8 @@ void _main_(int argc, const char** argv)
     // Create event queue
     auto event = createEventQueue(window);
 
-    // Create framebuffer
-    auto framebuffer = createFramebuffer(window);
+    // Create renderer
+    auto renderer = createRenderer(window);
 
     // Create world
     auto world = createWorld();
@@ -38,6 +38,6 @@ void _main_(int argc, const char** argv)
 
         // Update
         world->update();
-        world->render(framebuffer);
+        world->render(renderer);
     }
 }
