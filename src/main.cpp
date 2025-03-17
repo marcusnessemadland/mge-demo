@@ -14,13 +14,17 @@ void _main_(int argc, const char** argv)
     auto event = createEventQueue(window);
 
     // Create renderer
-    auto renderer = createRenderer(window);
+    auto renderer = createRenderer(window, RendererType::Auto);
 
     // Create world
     auto world = createWorld();
 
     // Create camera
     auto camera = createCamera(world, Projection::Perspective);
+    camera->setFOV(60.0f);
+
+    // Create scene
+    auto scene = createScene(world);
 
     // Game loop
     while (!window->isClosed())
@@ -29,10 +33,19 @@ void _main_(int argc, const char** argv)
         while (!event->empty())
         {
             const Event& ev = event->front();
+            if (ev.type == EventType::Keyboard)
+            {
+                const KeyboardData keyboard = ev.data.keyboard;
+                if (keyboard.key == Key::Escape)
+                {
+                    window->close();
+                }
+            }
             if (ev.type == EventType::Close)
             {
                 window->close();
             }
+
             event->pop();
         }
 
