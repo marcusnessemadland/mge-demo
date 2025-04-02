@@ -1,3 +1,3 @@
-[submodule "vulkan-renderer"]
-	path = vulkan-renderer
-	url = https://github.com/marcusnessemadland/vulkan-renderer.git
+[submodule "mge"]
+	path = mge
+	url = https://github.com/marcusnessemadland/mge.git
