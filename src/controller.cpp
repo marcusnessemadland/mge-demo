@@ -1,3 +1,8 @@
+/*
+ * Copyright 2025 Marcus Nesse Madland. All rights reserved.
+ * License: https://github.com/marcusnessemadland/mge/blob/main/LICENSE
+ */
+
 #include "controller.h"
 
 using namespace vr;
@@ -5,7 +10,7 @@ using namespace vr;
 void Controller::mouseUpdate(const SDL_Update& update)
 {
     // Look up/down and right/left
-    m_lookInput = Vec2(update.mouse.xrel, update.mouse.yrel) * -1.0f;
+    m_lookInput = Vec2((float)update.mouse.xrel, (float)update.mouse.yrel) * -1.0f;
 }
 
 void Controller::keyUpdate(const SDL_Update& _update)

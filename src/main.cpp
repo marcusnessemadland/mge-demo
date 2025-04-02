@@ -1,7 +1,10 @@
-/// Demo example
-///
+/*
+ * Copyright 2025 Marcus Nesse Madland. All rights reserved.
+ * License: https://github.com/marcusnessemadland/mge/blob/main/LICENSE
+ */
 
-#include <vulkan-renderer.h>
+#include <mge.h>
+
 #include "controller.h"
 
 using namespace vr;
@@ -10,7 +13,7 @@ using namespace vr;
 void _main_(int argc, const char** argv)
 {
     // Create window
-    auto window = createWindow("MGE", 1280, 720, SDL_WINDOW_RESIZABLE);
+    auto window = createWindow("Modern Graphics Engine", 1280, 720, SDL_WINDOW_RESIZABLE);
 
     // Create renderer
     auto renderer = createRenderer(window, bgfx::RendererType::OpenGL);

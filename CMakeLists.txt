@@ -22,8 +22,8 @@ target_link_libraries(${PROJECT_NAME} mge)
 target_compile_definitions(
 		${PROJECT_NAME}
 		PRIVATE 
-        	"-D_CRT_SECURE_NO_WARNINGS" #
-		"-D__STDC_FORMAT_MACROS" #
+        "-D_CRT_SECURE_NO_WARNINGS" #
+        "-D__STDC_FORMAT_MACROS" #
 	)
 
 set_property(
