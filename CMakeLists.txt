@@ -15,8 +15,22 @@ file(GLOB_RECURSE
 
 add_subdirectory(vulkan-renderer)
 
-vr_add_executable(${PROJECT_NAME} "${SOURCE_FILES}")
+add_executable( ${PROJECT_NAME} "${SOURCE_FILES}")
 
 target_link_libraries(${PROJECT_NAME} vulkan-renderer)
+
+target_compile_definitions(
+		${PROJECT_NAME}
+		PRIVATE 
+        "-D_CRT_SECURE_NO_WARNINGS" #
+		"-D__STDC_FORMAT_MACROS" #
+	)
+
+set_property(
+    TARGET 
+    ${PROJECT_NAME} 
+    PROPERTY 
+    VS_DEBUGGER_WORKING_DIRECTORY 
+    "${CMAKE_CURRENT_SOURCE_DIR}/runtime")
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/vulkan-renderer/include/vulkan-renderer/)
