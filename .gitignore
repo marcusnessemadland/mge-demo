@@ -1,5 +1,6 @@
 [Bb]uild/
 *.swp
+*.zip
 CMakeCache.txt
 CMakeFiles/
 Debug/

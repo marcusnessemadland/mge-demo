@@ -2,19 +2,18 @@
 ///
 
 #include <vulkan-renderer.h>
+#include "controller.h"
 
 using namespace vr;
 
+// Define main
 void _main_(int argc, const char** argv)
 {
     // Create window
-    auto window = createWindow("Demo", 0, 0, 1280, 720, VR_WINDOW_DEFAULT);
-
-    // Create event queue
-    auto event = createEventQueue(window);
+    auto window = createWindow("MGE", 1280, 720, SDL_WINDOW_RESIZABLE);
 
     // Create renderer
-    auto renderer = createRenderer(window, RendererType::Auto);
+    auto renderer = createRenderer(window, bgfx::RendererType::OpenGL);
 
     // Create world
     auto world = createWorld();
@@ -22,33 +21,18 @@ void _main_(int argc, const char** argv)
     // Create camera
     auto camera = createCamera(world, Projection::Perspective);
     camera->setFOV(60.0f);
+    camera->setPosition(Vec3(0.0f, 2.0f, 5.0f));
+    camera->setTarget(Vec3(0.0f, 0.0f, 0.0f));
+
+    // Create controller
+    auto controller = createController(world, window, camera);
 
     // Create scene
-    auto scene = createScene(world);
+    auto scene = loadScene(world, "scenes/sun_temple.bin" /*"scenes/bistro.bin"*/);
 
     // Game loop
     while (!window->isClosed())
     {
-        // Event loop
-        while (!event->empty())
-        {
-            const Event& ev = event->front();
-            if (ev.type == EventType::Keyboard)
-            {
-                const KeyboardData keyboard = ev.data.keyboard;
-                if (keyboard.key == Key::Escape)
-                {
-                    window->close();
-                }
-            }
-            if (ev.type == EventType::Close)
-            {
-                window->close();
-            }
-
-            event->pop();
-        }
-
         // Update
         world->update();
         world->render(renderer);
