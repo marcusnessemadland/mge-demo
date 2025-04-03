@@ -5,7 +5,7 @@
 
 #include "controller.h"
 
-using namespace vr;
+using namespace mge;
 
 void Controller::mouseUpdate(const SDL_Update& update)
 {
@@ -66,21 +66,24 @@ Controller::Controller(std::shared_ptr<Window> _window)
 void Controller::update(double _dt)
 {
     // Update camera fly movement
-    if (!m_blockInput)
+    if (m_blockInput)
     {
-        if (std::shared_ptr<CameraFlyComponent> component = getComponent<CameraFlyComponent>())
-        {
-            // Call component API
-            component->setMoveInput(normalize(m_moveInput));
-            component->setLookInput(m_lookInput);
-        }
+        m_moveInput = Vec3(0.0f, 0.0f, 0.0f);
+        m_lookInput = Vec2(0.0f, 0.0f);
+    }
+
+    if (std::shared_ptr<CameraFlyComponent> component = getComponent<CameraFlyComponent>())
+    {
+        // Call component API
+        component->setMoveInput(normalize(m_moveInput));
+        component->setLookInput(m_lookInput);
     }
 }
 
-std::shared_ptr<Controller> createController(std::shared_ptr<vr::World> _world, std::shared_ptr<vr::Window> _window, std::shared_ptr<vr::Camera> _camera)
+std::shared_ptr<Controller> createController(std::shared_ptr<mge::World> _world, std::shared_ptr<mge::Window> _window, std::shared_ptr<mge::Camera> _camera)
 {
     // Create entity
-    auto controller = vr::createEntity<Controller>(_world, _window);
+    auto controller = mge::createObject<Controller>(_world, _window);
 
     // Add components
     controller->addComponent<CameraFlyComponent>(_camera);

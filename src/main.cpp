@@ -7,7 +7,7 @@
 
 #include "controller.h"
 
-using namespace vr;
+using namespace mge;
 
 // Define main
 void _main_(int argc, const char** argv)
@@ -32,6 +32,7 @@ void _main_(int argc, const char** argv)
 
     // Create scene
     auto scene = loadScene(world, "scenes/sun_temple.bin" /*"scenes/bistro.bin"*/);
+    //scene->beginMayaSession();
 
     // Game loop
     while (!window->isClosed())
@@ -40,4 +41,6 @@ void _main_(int argc, const char** argv)
         world->update();
         world->render(renderer);
     }
+
+    //scene->endMayaSession();
 }
